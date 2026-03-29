@@ -1,0 +1,59 @@
+CREATE TABLE Worker (
+    WORKER_ID INT NOT NULL PRIMARY KEY,
+    FIRST_NAME VARCHAR(25),
+    LAST_NAME VARCHAR(25),
+    SALARY INT,
+    JOINING_DATE DATETIME,
+    DEPARTMENT VARCHAR(25)
+);
+
+INSERT INTO Worker (WORKER_ID, FIRST_NAME, LAST_NAME, SALARY, JOINING_DATE, DEPARTMENT) VALUES
+(1, 'Monika',   'Arora',   100000, '2014-02-20 09:00:00', 'HR'),
+(2, 'Niharika', 'Verma',    80000, '2014-06-11 09:00:00', 'Admin'),
+(3, 'Vishal',   'Singhal', 300000, '2014-02-20 09:00:00', 'HR'),
+(4, 'Amitabh',  'Singh',   500000, '2014-02-20 09:00:00', 'Admin'),
+(5, 'Vivek',    'Bhati',   500000, '2014-06-11 09:00:00', 'Admin'),
+(6, 'Vipul',    'Diwan',   200000, '2014-06-11 09:00:00', 'Account'),
+(7, 'Satish',   'Kumar',    75000, '2014-01-20 09:00:00', 'Account'),
+(8, 'Geetika',  'Chauhan',  90000, '2014-04-11 09:00:00', 'Admin');
+
+CREATE TABLE Bonus (
+    WORKER_REF_ID INT,
+    BONUS_AMOUNT INT,
+    BONUS_DATE DATETIME,
+    FOREIGN KEY (WORKER_REF_ID)
+        REFERENCES Worker(WORKER_ID)
+        ON DELETE CASCADE
+);
+
+INSERT INTO Bonus (WORKER_REF_ID, BONUS_AMOUNT, BONUS_DATE) VALUES
+(1, 5000, '2016-02-20 10:00:00'),
+(2, 3000, '2016-06-11 00:00:00'),
+(3, 1000, '2016-02-20 00:00:00'),
+(4, 2000, '2016-06-11 00:00:00');
+
+CREATE TABLE Title (
+    WORKER_REF_ID INT,
+    WORKER_TITLE VARCHAR(25),
+    AFFECTED_FROM DATETIME,
+    FOREIGN KEY (WORKER_REF_ID)
+        REFERENCES Worker(WORKER_ID)
+        ON DELETE CASCADE
+);
+
+INSERT INTO Title (WORKER_REF_ID, WORKER_TITLE, AFFECTED_FROM) VALUES
+(1, 'Manager',       '2016-02-20 00:00:00'),
+(2, 'Executive',     '2016-06-11 00:00:00'),
+(8, 'Executive',     '2016-06-11 00:00:00'),
+(5, 'Manager',       '2016-06-11 00:00:00'),
+(4, 'Asst. Manager', '2016-06-11 00:00:00'),
+(7, 'Executive',     '2016-06-11 00:00:00'),
+(6, 'Lead',          '2016-06-11 00:00:00'),
+(3, 'Lead',          '2016-06-11 00:00:00');
+
+SELECT * FROM Worker;
+SELECT * FROM Bonus;
+SELECT * FROM Title;
+SELECT SALARY  FROM Worker;
+SELECT * FROM Worker where SALARY>100000;
+SELECT* FROM Worker where SALARY  between 0 and 10000000; 
